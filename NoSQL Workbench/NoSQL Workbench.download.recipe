@@ -51,9 +51,9 @@ For Intel set DOWNLOAD_ARCH to "x64" and SUPPORTED_ARCH to "x86_64"</string>
                 <key>Arguments</key>
                 <dict>
                     <key>filename</key>
-                    <string>%NAME%.dmg</string>
+                    <string>%NAME%-%DOWNLOAD_ARCH%.dmg</string>
                     <key>url</key>
-                    <string>%output_string%</string>
+                    <string>%match%</string>
                 </dict>
                 <key>Processor</key>
                 <string>URLDownloader</string>
