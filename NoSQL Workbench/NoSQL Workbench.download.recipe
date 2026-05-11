@@ -3,23 +3,46 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Downloads the latest version of NoSQL Workbench.</string>
+        <string>Downloads the latest version of NoSQL Workbench.
+
+For Apple Silicon set SUPPORTED_ARCH to "arm64" (default)
+
+For Intel set SUPPORTED_ARCH to "x86_64"</string>
         <key>Identifier</key>
         <string>com.amazon.aws.download.NoSQLWorkbench</string>
         <key>Input</key>
         <dict>
             <key>NAME</key>
             <string>NoSQL Workbench</string>
+            <key>SUPPORTED_ARCH</key>
+            <string>arm64</string>
         </dict>
         <key>MinimumVersion</key>
         <string>1.0.0</string>
         <key>Process</key>
         <array>
+        	<dict>
+    			<key>Processor</key>
+    			<string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
+    			<key>Arguments</key>
+    			<dict>
+        			<key>input_string</key>
+        			<string>%SUPPORTED_ARCH%</string>
+        			<key>find</key>
+        			<string>x86_64</string>
+        			<key>replace</key>
+        			<string>x64</string>
+        			<key>result_output_var_name</key>
+        			<string>download_arch</string>
+    			</dict>
+			</dict>
             <dict>
                 <key>Arguments</key>
                 <dict>
                     <key>re_pattern</key>
-                    <string>https:.+.dmg(?!.sha)</string>
+                    <string>https:.+%download_arch%.dmg(?!.sha)</string>
+                    <key>result_output_var_name</key>
+                    <string>match</string>
                     <key>url</key>
                     <string>https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html</string>
                 </dict>
@@ -35,6 +58,8 @@
                     <string>%match%</string>
                     <key>replace</key>
                     <string>NoSQL%20Workbench</string>
+                    <key>result_output_var_name</key>
+                    <string>match</string>
                 </dict>
                 <key>Processor</key>
                 <string>com.github.homebysix.FindAndReplace/FindAndReplace</string>
@@ -43,9 +68,9 @@
                 <key>Arguments</key>
                 <dict>
                     <key>filename</key>
-                    <string>%NAME%.dmg</string>
+                    <string>%NAME%-%SUPPORTED_ARCH%.dmg</string>
                     <key>url</key>
-                    <string>%output_string%</string>
+                    <string>%match%</string>
                 </dict>
                 <key>Processor</key>
                 <string>URLDownloader</string>

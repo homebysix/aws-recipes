@@ -12,6 +12,8 @@
             <string>apps/%NAME%</string>
             <key>NAME</key>
             <string>NoSQL Workbench</string>
+            <key>SUPPORTED_ARCH</key>
+            <string>arm64</string>
             <key>pkginfo</key>
             <dict>
                 <key>catalogs</key>
@@ -30,7 +32,7 @@
                 <true/>
                 <key>supported_architectures</key>
                 <array>
-                    <string>x86_64</string>
+                    <string>%SUPPORTED_ARCH%</string>
                 </array>
             </dict>
         </dict>
